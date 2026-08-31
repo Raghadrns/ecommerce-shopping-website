@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Shopping Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Shopping Website</h1>
+</header>
+
+<nav>
+    <a href="index.php">Home</a>
+    <a href="products.php">Products</a>
+    <a href="cart.php">Cart</a>
+    <a href="register.php">Register</a>
+    <a href="login.php">Login</a>
+             <a href="order history.php">order history</a>
+
+</nav>
+
+<div class="container">
+    <h2>User Login</h2>
+
+    <form method="post" onsubmit="return validateLoginForm();">
+        <label>Email:</label><br>
+        <input type="text" id="login_email" name="email"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" id="login_password" name="password"><br><br>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2026 Shopping Website</p>
+</footer>
+
+</body>
+</html>
