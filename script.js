@@ -37,3 +37,148 @@ function validateLoginForm() {
     alert("Login successful");
     return true;
 }
+
+// Shopping Cart
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    window.location.href = "page4.html";
+}
+
+function renderCart() {
+    const cartBody = document.getElementById("cart-body");
+    const cartTotal = document.getElementById("cart-total");
+
+    if (!cartBody || !cartTotal) return;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cartBody.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        let itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.price.toFixed(2)}</td>
+            <td>
+                <button onclick="changeQuantity(${index}, -1)">-</button>
+                ${item.quantity}
+                <button onclick="changeQuantity(${index}, 1)">+</button>
+            </td>
+            <td>${itemTotal.toFixed(2)}</td>
+            <td>
+                <button class="btn" onclick="removeFromCart(${index})">Remove</button>
+            </td>
+        `;
+
+        cartBody.appendChild(row);
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+}
+
+function changeQuantity(index, change) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function checkout() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    let total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    let newOrder = {
+        id: orders.length + 1,
+        total: total,
+        date: new Date().toLocaleString()
+    };
+
+    orders.push(newOrder);
+
+    localStorage.setItem("orders", JSON.stringify(orders));
+    localStorage.removeItem("cart");
+
+    alert("Order placed successfully!");
+
+    window.location.href = "page5.html";
+}
+
+function renderOrders() {
+    const ordersBody = document.getElementById("orders-body");
+    const noOrders = document.getElementById("no-orders");
+
+    if (!ordersBody || !noOrders) return;
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    ordersBody.innerHTML = "";
+
+    if (orders.length === 0) {
+        noOrders.style.display = "block";
+        return;
+    }
+
+    noOrders.style.display = "none";
+
+    orders.forEach(order => {
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${order.id}</td>
+            <td>${order.total.toFixed(2)}</td>
+            <td>${order.date}</td>
+        `;
+
+        ordersBody.appendChild(row);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderCart();
+    renderOrders();
+});
