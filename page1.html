@@ -24,14 +24,11 @@
 <div class="container">
     <h2>User Registration</h2>
 
-    <form method="post" onsubmit="return validateRegisterForm();">
-        <label>Full Name:</label><br>
+    <form onsubmit="validateRegisterForm(); return false;">        <label>Full Name:</label><br>
         <input type="text" id="full_name" name="full_name"><br><br>
 
         <label>Email:</label><br>
-        <input type="text" id="email" name="email"><br><br>
-
-        <label>Password:</label><br>
+        <input type="email" id="email" name="email"><br><br>       <label>Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
 
         <label>Confirm Password:</label><br>
