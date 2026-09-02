@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>My Orders - Shopping Website</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
 </head>
 <body>
 
@@ -23,26 +24,20 @@
 
 <div class="container">
     <h2>Order History</h2>
-
-    <table>
+<table>
+    <thead>
         <tr>
             <th>Order ID</th>
             <th>Total (SAR)</th>
             <th>Date</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>250.00</td>
-            <td>2026-04-10 14:30:00</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>150.00</td>
-            <td>2026-04-11 09:15:00</td>
-        </tr>
-    </table>
+    </thead>
 
-    <p>This page shows the list of all previous orders made by the logged-in user.</p>
+    <tbody id="orders-body">
+    </tbody>
+</table>
+
+<p id="no-orders">No previous orders yet.</p> 
 </div>
 
 <footer>
