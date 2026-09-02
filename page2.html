@@ -25,11 +25,8 @@
 <div class="container">
     <h2>User Login</h2>
 
-    <form method="post" onsubmit="return validateLoginForm();">
-        <label>Email:</label><br>
-        <input type="text" id="login_email" name="email"><br><br>
-
-        <label>Password:</label><br>
+    <form onsubmit="validateLoginForm(); return false;">        <label>Email:</label><br>
+        <input type="email" id="login_email" name="email"><br><br>        <label>Password:</label><br>
         <input type="password" id="login_password" name="password"><br><br>
 
         <button type="submit" class="btn">Login</button>
